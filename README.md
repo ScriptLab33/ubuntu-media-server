@@ -1,4 +1,6 @@
-# ubuntu media server
+# Ubuntu Media Server Setup Guide
+
+This guide provides instructions for setting up a media server on Ubuntu, utilizing popular tools like Cockpit, Prowlarr, Sonarr, Radarr, Jellyfin, and Transmission. Ideal for both novice and experienced users, this setup enables efficient management and streaming of media content.
 
 Cockpit: https://SERVER_IP:9090/machines
 Prowlarr: http://SERVER_IP:9696
