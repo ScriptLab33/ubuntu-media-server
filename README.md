@@ -82,8 +82,14 @@ Offer tips for common issues users might encounter and how to troubleshoot them.
 - If you encounter permissions issues, verify that your user is correctly added to the Docker group and that you have logged out and back in for the changes to take effect.
 - For networking issues, ensure your firewall settings allow traffic on the necessary ports.
 
+## Conclusion
+
+Congratulations on setting up your Ubuntu Media Server! You now have a powerful setup for managing and streaming your media content. Explore adding your media to Jellyfin, configuring Sonarr and Radarr for automatic downloads, and optimizing your server performance.
+
+Feel free to contribute to this guide or suggest improvements. Happy streaming!
 
 
+## Original script
 ```
 sudo apt-get update -y
 #sudo apt install -t $(grep VERSION_CODENAME /etc/os-release | cut -d '=' -f 2)-backports cockpit -y
