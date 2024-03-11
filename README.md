@@ -51,12 +51,16 @@ This guide provides instructions for setting up a media server on Ubuntu, utiliz
     ```bash
     sudo groupadd docker
     sudo usermod -aG docker $(whoami)
-
+    ```
     # Jellyfin setup
+    ```
     ...
+    ```
 
     # Sonarr setup
+    ```
     ...
+    ```
 
     # Continue with Radarr, Prowlarr, and Transmission setup as originally provided
     ```
