@@ -26,11 +26,9 @@ This guide provides instructions for setting up a media server on Ubuntu, utiliz
 2. **Install Cockpit with dependencies**
 
     - This command installs Cockpit from the backports repository, allowing for the latest features.
-
     ```bash
     sudo apt install -t $(grep VERSION_CODENAME /etc/os-release | cut -d '=' -f 2)-backports cockpit -y
     sudo apt-get install cockpit-machines -y
-    sudo apt-get install cifs-utils -y
     ```
 
 3. **Set up shared storage**
@@ -38,6 +36,7 @@ This guide provides instructions for setting up a media server on Ubuntu, utiliz
     - Replace `USERNAME`, `IP_OF_FILESERVER`, and `shared` with your details.
 
     ```bash
+    sudo apt-get install cifs-utils -y
     mkdir /home/USERNAME/shared
     echo "//IP_OF_FILESERVER/shared /home/USERNAME/shared cifs username=USERNAME,noauto,rw,users 0 0" | sudo tee -a /etc/fstab
     mount -t cifs //IP_OF_FILESERVER/shared /home/USERNAME/shared -o username=USERNAME
