@@ -47,7 +47,7 @@ This guide provides instructions for setting up a media server on Ubuntu, utiliz
 
     - This section outlines the Docker commands to run Jellyfin, Sonarr, Radarr, Prowlarr, and Transmission. Replace `USERNAME`, `USERPASSWORD`, and paths as needed.
 
-    # Add your user to the Docker group
+5. **Add your user to the Docker group**
     ```bash
     sudo groupadd docker
     sudo usermod -aG docker $(whoami)
