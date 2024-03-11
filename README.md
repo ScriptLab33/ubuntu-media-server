@@ -2,15 +2,92 @@
 
 This guide provides instructions for setting up a media server on Ubuntu, utilizing popular tools like Cockpit, Prowlarr, Sonarr, Radarr, Jellyfin, and Transmission. Ideal for both novice and experienced users, this setup enables efficient management and streaming of media content.
 
-Cockpit: https://SERVER_IP:9090/machines
-Prowlarr: http://SERVER_IP:9696
-Sonarr: http://SERVER_IP:8989
-Radarr: http://SERVER_IP:7878/
+## Prerequisites
+
+- Ubuntu Server (version 20.04 or later recommended)
+- Basic understanding of Linux command line and Docker
+- Network access and permissions
+
+## Quick Access
+
+- Cockpit: `https://<SERVER_IP>:9090/machines`
+- Prowlarr: `http://<SERVER_IP>:9696`
+- Sonarr: `http://<SERVER_IP>:8989`
+- Radarr: `http://<SERVER_IP>:7878`
+
+## Installation Guide
+
+1. **Update your system**
+
+    ```bash
+    sudo apt-get update -y
+    ```
+
+2. **Install Cockpit with dependencies**
+
+    - This command installs Cockpit from the backports repository, allowing for the latest features.
+
+    ```bash
+    sudo apt install -t $(grep VERSION_CODENAME /etc/os-release | cut -d '=' -f 2)-backports cockpit -y
+    sudo apt-get install cockpit-machines -y
+    sudo apt-get install cifs-utils -y
+    ```
+
+3. **Set up shared storage**
+
+    - Replace `USERNAME`, `IP_OF_FILESERVER`, and `shared` with your details.
+
+    ```bash
+    mkdir /home/USERNAME/shared
+    echo "//IP_OF_FILESERVER/shared /home/USERNAME/shared cifs username=USERNAME,noauto,rw,users 0 0" | sudo tee -a /etc/fstab
+    mount -t cifs //IP_OF_FILESERVER/shared /home/USERNAME/shared -o username=USERNAME
+    ```
+
+4. **Install Docker**
+
+    - This script installs Docker, allowing you to run applications in containers.
+
+    ```bash
+    cd /home/USERNAME/shared
+    sudo curl -fsSL https://get.docker.com -o install-docker.sh
+    sudo sh install-docker.sh
+    ```
+
+5. **Configure Docker and applications**
+
+    - This section outlines the Docker commands to run Jellyfin, Sonarr, Radarr, Prowlarr, and Transmission. Replace `USERNAME`, `USERPASSWORD`, and paths as needed.
+
+    ```bash
+    # Add your user to the Docker group
+    sudo groupadd docker
+    sudo usermod -aG docker $(whoami)
+
+    # Jellyfin setup
+    ...
+
+    # Sonarr setup
+    ...
+
+    # Continue with Radarr, Prowlarr, and Transmission setup as originally provided
+    ```
+
+### Additional Tips and Troubleshooting
+
+Offer tips for common issues users might encounter and how to troubleshoot them. This section can be expanded based on user feedback.
+
+```markdown
+## Tips and Troubleshooting
+
+- Ensure your `USERNAME` and `IP_OF_FILESERVER` are correctly replaced throughout the script.
+- If you encounter permissions issues, verify that your user is correctly added to the Docker group and that you have logged out and back in for the changes to take effect.
+- For networking issues, ensure your firewall settings allow traffic on the necessary ports.
+
+
 
 ```
 sudo apt-get update -y
-sudo apt install -t $(grep VERSION_CODENAME /etc/os-release | cut -d '=' -f 2)-backports cockpit -y
-sudo apt-get install cockpit-machines -y
+#sudo apt install -t $(grep VERSION_CODENAME /etc/os-release | cut -d '=' -f 2)-backports cockpit -y
+#sudo apt-get install cockpit-machines -y
 sudo apt-get install cifs-utils -y
 mkdir /home/USERNAME/shared
 sudo nano /etc/fstab
