@@ -1,6 +1,6 @@
 # Ubuntu Media Server Setup Guide
 
-This guide provides instructions for setting up a media server on Ubuntu, utilizing popular tools like Cockpit, Prowlarr, Sonarr, Radarr, Jellyfin, and Transmission. Ideal for both novice and experienced users, this setup enables efficient management and streaming of media content.
+This guide provides instructions for setting up a media server on Ubuntu, utilizing popular tools like Prowlarr, Sonarr, Radarr, Jellyfin, and Transmission. Ideal for both novice and experienced users, this setup enables efficient management and streaming of media content.
 
 ## Prerequisites
 
@@ -10,7 +10,6 @@ This guide provides instructions for setting up a media server on Ubuntu, utiliz
 
 ## Quick Access
 
-- Cockpit: `https://<SERVER_IP>:9090/machines`
 - Prowlarr: `http://<SERVER_IP>:9696`
 - Sonarr: `http://<SERVER_IP>:8989`
 - Radarr: `http://<SERVER_IP>:7878`
@@ -23,15 +22,7 @@ This guide provides instructions for setting up a media server on Ubuntu, utiliz
     sudo apt-get update -y
     ```
 
-2. **Install Cockpit with dependencies**
-
-    - This command installs Cockpit from the backports repository, allowing for the latest features.
-    ```bash
-    sudo apt install -t $(grep VERSION_CODENAME /etc/os-release | cut -d '=' -f 2)-backports cockpit -y
-    sudo apt-get install cockpit-machines -y
-    ```
-
-3. **Set up shared storage**
+2. **Set up shared storage**
 
     - Replace `USERNAME`, `IP_OF_FILESERVER`, and `shared` with your details.
 
@@ -42,7 +33,7 @@ This guide provides instructions for setting up a media server on Ubuntu, utiliz
     mount -t cifs //IP_OF_FILESERVER/shared /home/USERNAME/shared -o username=USERNAME
     ```
 
-4. **Install Docker**
+3. **Install Docker**
 
     - This script installs Docker, allowing you to run applications in containers.
 
@@ -52,7 +43,7 @@ This guide provides instructions for setting up a media server on Ubuntu, utiliz
     sudo sh install-docker.sh
     ```
 
-5. **Configure Docker and applications**
+4. **Configure Docker and applications**
 
     - This section outlines the Docker commands to run Jellyfin, Sonarr, Radarr, Prowlarr, and Transmission. Replace `USERNAME`, `USERPASSWORD`, and paths as needed.
 
