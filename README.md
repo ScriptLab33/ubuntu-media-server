@@ -27,7 +27,7 @@ docker volume create jellyfin-cache
 docker run -d --name jellyfin --user 1000:1000 --net=host --volume jellyfin-config:/config --volume jellyfin-cache:/cache --mount type=bind,source=/home/USERNAME/shared,target=/media --restart=unless-stopped jellyfin/jellyfin
 
 docker volume create snr-config
-docker run -d --name=sonarr -e PUID=1000 -e PGID=1000 -e TZ=Etc/UTC -p 8989:8989 --volume snr-config:/config --mount type=bind,source=/home/USERNAME/shared/TV,target=/tv  --restart unless-stopped lscr.io/linuxserver/sonarr:latest
+docker run -d --name=sonarr -e PUID=1000 -e PGID=1000 -e TZ=Etc/UTC -p 8989:8989 --volume snr-config:/config --mount type=bind,source=/home/USERNAME/shared/TV,target=/tv --mount type=bind,source=/home/USERNAME/shared/torrents/downloads/complete,target=/downloads --restart unless-stopped lscr.io/linuxserver/sonarr:latest
 
 docker volume create prw-config
 docker run -d --name prowlarr -p 9696:9696 -e PUID=1000 -e PGID=1000 -e UMASK=002 -e TZ="Etc/UTC" --volume prw-config:/config ghcr.io/hotio/prowlarr
