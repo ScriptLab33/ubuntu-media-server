@@ -55,22 +55,41 @@ This guide provides instructions for setting up a media server on Ubuntu, utiliz
     
 6. **Jellyfin setup**
     ```
-    ...
+    docker pull jellyfin/jellyfin
+    docker volume create jellyfin-config
+    docker volume create jellyfin-cache
+    docker run -d --name jellyfin --user 1000:1000 --net=host --volume jellyfin-config:/config --volume jellyfin-cache:/cache --mount type=bind,source=/home/USERNAME/shared,target=/media --restart=unless-stopped jellyfin/jellyfin
     ```
 
 7. **Sonarr setup**
     ```
+    docker volume create snr-config
+    docker run -d --name=sonarr -e PUID=1000 -e PGID=1000 -e TZ=Etc/UTC -p 8989:8989 --volume snr-config:/config --mount type=bind,source=/home/USERNAME/shared/TV,target=/tv --mount type=bind,source=/home/USERNAME/shared/torrents/downloads,target=/downloads --restart unless-stopped lscr.io/linuxserver/sonarr:latest
+    ```
+
+8. **Prowlarr setup**
+   ```
+    docker volume create prw-config
+    docker run -d --name prowlarr -p 9696:9696 -e PUID=1000 -e PGID=1000 -e UMASK=002 -e TZ="Etc/UTC" --volume prw-config:/config ghcr.io/hotio/prowlarr
+    ```
+   
+9. **Radarr setup**
+   ```
+    docker volume create rdr-config
+    docker run -d --name=radarr -e PUID=1000 -e PGID=1000 -e TZ=Etc/UTC -p 7878:7878 --volume radarr-config:/config -v /home/USERNAME/shared/Movies:/movies --restart unless-stopped lscr.io/linuxserver/radarr:latest
+    ```
+   
+10. **Transmission setup**
+
+    ```
+    docker volume create transm-config
+    docker run -d --name=transmission -e PUID=1000 -e PGID=1000 -e TZ=Etc/UTC -e USER=USERNAME -e PASS=USERPASSWORD -p 9091:9091 -p 51413:51413 -p 51413:51413/udp --volume transm-config:/config -v /home/USERNAME/shared/torrents/downloads:/downloads -v /home/USERNAME/shared/torrents/watched:/watch --restart unless-stopped lscr.io/linuxserver/transmission:latest
+    ```
+   
+ **final setup steps**
+    ```
     ...
     ```
-
-8. **final setup steps**
-    ```
-    ...
-    ```
-
-### Additional Tips and Troubleshooting
-
-Offer tips for common issues users might encounter and how to troubleshoot them. This section can be expanded based on user feedback.
 
 #### Tips and Troubleshooting
 ```markdown
@@ -78,8 +97,8 @@ Offer tips for common issues users might encounter and how to troubleshoot them.
 - If you encounter permissions issues, verify that your user is correctly added to the Docker group and that you have logged out and back in for the changes to take effect.
 - For networking issues, ensure your firewall settings allow traffic on the necessary ports.
 ```
-#### Conclusion
 
+#### Conclusion
 Congratulations on setting up your Ubuntu Media Server! You now have a powerful setup for managing and streaming your media content. Explore adding your media to Jellyfin, configuring Sonarr and Radarr for automatic downloads, and optimizing your server performance.
 
 Feel free to contribute to this guide or suggest improvements. Happy streaming!
