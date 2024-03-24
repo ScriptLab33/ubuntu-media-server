@@ -16,10 +16,11 @@ This guide provides instructions for setting up a media server on Ubuntu, utiliz
 
 ## Installation Guide
 
-1. **Update your system**
+1. **Update your system and install nano**
 
     ```bash
     sudo apt-get update -y
+    sudo apt-get install nano
     ```
 
 2. **Set up shared storage**
