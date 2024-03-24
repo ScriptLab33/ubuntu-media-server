@@ -25,13 +25,13 @@ This guide provides instructions for setting up a media server on Ubuntu, utiliz
 
 2. **Set up shared storage**
 
-    - Replace `USERNAME`, `IP_OF_FILESERVER`, and `shared` with your details.
-
     ```bash
     sudo apt-get install cifs-utils -y
     mkdir /home/USERNAME/shared
     echo "//IP_OF_FILESERVER/shared /home/USERNAME/shared cifs username=USERNAME,noauto,rw,users 0 0" | sudo tee -a /etc/fstab
     mount -t cifs //IP_OF_FILESERVER/shared /home/USERNAME/shared -o username=USERNAME
+    sudo systemctl enable systemd-networkd-wait-online
+
     ```
 
 3. **Install Docker**
